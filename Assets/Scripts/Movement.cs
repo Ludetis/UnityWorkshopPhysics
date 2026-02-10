@@ -11,12 +11,13 @@ public class Movement : MonoBehaviour
 
     public GameObject animatedCharacter;
     public float speed=5f;
+    private Rigidbody rb;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        rb = GetComponent<Rigidbody>();
     }
 
     void OnMove(InputValue value)
@@ -29,8 +30,11 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody>().linearVelocity = moveDirection * speed;        
-        animatedCharacter.transform.rotation = Quaternion.Euler(0, Vector3.SignedAngle(Vector3.forward, moveDirection, Vector3.up), 0);
+        rb.linearVelocity = moveDirection * speed;        
+        
+        animatedCharacter.transform.rotation = 
+            Quaternion.Euler(0, Vector3.SignedAngle(Vector3.forward, moveDirection, Vector3.up), 0);
+        
         Animator a = animatedCharacter.GetComponent<Animator>();
         if (moveDirection.magnitude != 0)
         {
